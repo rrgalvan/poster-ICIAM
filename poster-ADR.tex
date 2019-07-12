@@ -250,13 +250,14 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
         Let us consider the following discrete problem: find
         $\umm\in\Uh$,
         \begin{equation}
-          \int_\Omega \delta_t\umm \phi + a^{sip}(\umm,\phi) + a^{god}(\umm,\phi)=0 \quad \forall\phi\in\Uh,
+        \label{discrete_problem_u}
+          \int_\Omega \delta_t\umm \phi + \asip(\umm,\phi) + \agod(\umm,\phi)=0 \quad \forall\phi\in\Uh,
         \end{equation}
         where
         \begin{align*}
-          a^{sip}(u,\phi) &= \textbf{...completar...},
+          \asip(u,\phi) &= \sum_{K\in\mathcal{T}_h}\int_K\nabla_h u\nabla_h \phi-\sum_{e\in\mathcal{E}_h}\int_e\left(\average{\nabla_h u\cdot\mathbf{n}_e}\jump{\phi}+\average{\nabla_h \phi\cdot\mathbf{n}_e}\jump{u}\right)\\&+\sigma\sum_{e\in\mathcal{E}_h}\int_e\frac{1}{h_e}\jump{u}\jump{\phi},
           \\
-          a^{god}(u,\phi) &= -\sum_K \int_K u \, (\wwmm\cdot \grad\phi)
+          \agod(u,\phi) &= -\sum_K \int_K u \, (\wwmm\cdot \grad\phi)
                             + \sum_{e\in\Eh}\{ u \, \wwmm \cdot \nn_e\}_\star
         \end{align*}
         and
