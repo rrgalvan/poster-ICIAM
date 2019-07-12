@@ -1,0 +1,503 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MUW Poster
+% LaTeX Template
+% Version 1.0 (31/08/2016)
+% (Based on Version 1.0 (31/08/2015) of the Jacobs Portrait Poster
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% Created by:
+% Nicolas Ballarini, CeMSIIS, Medical University of Vienna
+% nicoballarini@gmail.com
+% http://statistics.msi.meduniwien.ac.at/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\def\footer#1{\def\insertfooter{#1}}
+% --------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+% --------------------------------------------------------------------------------------
+
+\documentclass[final]{beamer}
+
+\usepackage[scale=1.1]{beamerposter} % Use the beamerposter package
+
+
+% Include a logo of your project if desired
+% \logo{\pgfputat{\pgfxy(-6,93)}{\pgfbox[center,base]{\includegraphics[width=0.15\textwidth]{ProjectLogo.jpg}}}}
+
+\usepackage{multicol}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+% The following two are column definitions for the aknowledgements section
+\newcolumntype{L}{>{\arraybackslash}m{22cm}}
+\newcolumntype{S}{>{\arraybackslash}m{5cm}}
+\usepackage{pgf}
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts, empheq}
+\usepackage{exscale}
+\usepackage{xcolor}
+\usepackage{ushort}
+\usepackage{setspace}
+\usepackage[square,numbers]{natbib}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{arydshln}
+\usepackage{ragged2e} % Justify text
+\addtobeamertemplate{block begin}{}{\justifying} % Justify all blocks
+\renewcommand{\indent}{\hspace*{2em}}
+
+\bibliographystyle{nat}
+\renewcommand{\vec}[1]{\ushort{#1}}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\definecolor{greenMUW}{RGB}{60,191,174}
+\definecolor{blueMUW}{RGB}{17,79,29}
+\definecolor{skinMUW}{RGB}{234,208,207}
+\definecolor{micolor}{RGB}{04,88,137}
+\definecolor{hellblauMUW}{RGB}{225,133,33}
+\setbeamercolor{block title}{bg=white, fg = hellblauMUW}
+
+\setbeamercolor{alerted text}{fg=greenMUW!200}
+
+% -----------------------------------------------
+% START Set the colors
+% Uncomment to apply colors you want to use.
+% -----------------------------------------------
+\colorlet{themecolor}{hellblauMUW}
+% \usebackgroundtemplate{\includegraphics[width=\paperwidth]{MUW_hellblau.pdf}}
+
+% \colorlet{themecolor}{skinMUW}
+% \colorlet{themecolor}{blueMUW}
+% \usebackgroundtemplate{\includegraphics{MUW_skin.pdf}}
+
+%% \colorlet{themecolor}{blueMUW}
+% \colorlet{themecolor}{hellblauMUW}
+% \usebackgroundtemplate{\includegraphics{MUW_hellblau.pdf}}
+% -----------------------------------------------
+% END Set the colors
+% -----------------------------------------------
+
+
+% -----------------------------------------------
+% START Set the width of the columns
+% -----------------------------------------------
+\setlength{\paperwidth}{90cm} % A0 width: 46.8in
+\setlength{\paperheight}{110cm} % A0 height: 33.1in
+\newlength{\sepmargin}
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+
+% The following measures are used for 2 columns
+\setlength{\sepmargin}{0.055\paperwidth} % Separation width (white space) between columns
+\setlength{\sepwid}{0.03\paperwidth} % Separation width (white space) between columns
+\setlength{\onecolwid}{0.43\paperwidth} % Width of one column
+\setlength{\twocolwid}{0.9\paperwidth} % Width of two columns
+
+% -----------------------------------------------------------
+% The following measures are used for 3 columns
+% \setlength{\sepmargin}{0.06\paperwidth} % Separation width (white space) between columns
+% \setlength{\sepwid}{0.02\paperwidth} % Separation width (white space) between columns
+% \setlength{\onecolwid}{0.28\paperwidth} % Width of one column
+% \setlength{\twocolwid}{0.58\paperwidth} % Width of two columns
+% \setlength{\threecolwid}{0.88\paperwidth} % Width of three columns
+% \setlength{\columnsep}{30pt}
+
+% -----------------------------------------------
+% END Set the width of the columns
+% -----------------------------------------------
+
+
+% --------------------------------------------------------------------------------------
+%	TITLE SECTION
+% --------------------------------------------------------------------------------------
+\setbeamertemplate{title}[left]
+\setbeamertemplate{frametitle}[default][left]
+% \setmainfont{Georgia}
+
+\title{Numerical schemes for Classical\\  Chemotaxis Equations  PC-239} % Poster title
+
+% \subtitle{IX International Congress on Industrial and Applied Mathematics \\ Valencia, Spain, 15-19th July 2019}
+\author{ Daniel Acosta Soba$^1$, Alba M. Navarro Izquierdo$^2$, J. Rafael Rodr\'iguez Galv\'an$^3$} % Author(s)
+
+\institute{Departamento de Matem\'aticas, Universidad de C\'adiz} % Institution(s)
+% --------------------------------------------------------------------------------------
+\pagenumbering{gobble}
+
+\usepackage{scrpage2}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\newcommand{\pageframe}{%
+\begin{tikzpicture}[remember picture, overlay]
+% page frame
+\fill [themecolor] (current page.north west)
+rectangle (current page.south east);
+\fill [white, rounded corners=1cm] ($(current page.north west)+(1cm,-2cm)$)
+rectangle ($(current page.south east)+(-1cm,2cm)$);
+% \strut gives all page mark nodes the same hight.
+\node[inner sep=0pt] (russell) at ($(current page.north east)+(-11cm,-11cm)$)
+{\includegraphics[width=.15\textwidth]{ProjectLogo.jpg}};
+\end{tikzpicture}
+
+}
+% set page style
+\cehead[\pageframe]{\pageframe}
+\cohead[\pageframe]{\pageframe}
+\pagestyle{scrheadings}
+
+\usepackage{hydstokes-sipdg}
+\newcommand{\property}[1]{\alert{\textbf{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\addtobeamertemplate{block end}{}{\vspace*{1ex}} % White space under blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{0ex}} % White space under highlighted (alert) blocks
+\setlength{\belowcaptionskip}{2ex} % White space under figures
+\setlength\belowdisplayshortskip{1ex} % White space under equations
+
+
+\begin{frame}[t] % The whole poster is enclosed in one beamer frame
+
+\begin{columns}[t]
+\begin{column}{\sepmargin}\end{column}
+
+\begin{column}{0.97\linewidth}
+    \vskip2cm
+    \raggedright
+    \usebeamercolor{title in headline}{\color{blueMUW}\Huge{\textbf{\inserttitle}}\\[1.5ex] \par}
+    \usebeamercolor{author in headline}{\color{blueMUW}\LARGE{\insertauthor}\\[1ex]}
+    \usebeamercolor{institute in headline}{\color{blueMUW}\normalsize{\insertinstitute}}{\color{blueMUW}}
+    \vspace*{0.5cm}
+
+    \rule{1.012\textwidth}{10pt}
+\end{column}
+\end{columns}
+
+\vspace*{0.5cm}
+
+\begin{columns}[t] % The whole poster consists of two major columns
+
+\begin{column}{\sepmargin}\end{column}
+
+\begin{column}{\onecolwid} % The first column
+
+
+    \begin{block}{Introduction}
+    Chemotaxis (movement of biological cells in response to
+    chemical signals) was modeled by Keller-Segel in 1970.
+    Although there are several models, we focus on the
+    classical one, given by the following equations in
+    $\Omega\subset\mathbb{R}^n$:
+    \begin{subequations}\label{KSclasico}
+        \begin{empheq}[left=\empheqlbrace]{align}
+        &u_t= \alpha_0\Delta u - \alpha_1\nabla\cdot( u\nabla v), \quad x\in\Omega,\, t>0, \label{KSclasico:a}\\
+        &v_t= \alpha_2\Delta v -\alpha_3 v+\alpha_4 u,  \quad x\in\Omega,\, t>0,\label{KSclasico:b}\\[0.2cm]
+        &\grad u \cdot \nn = \grad v \cdot \nn = 0, \quad x\in\partial\Omega,\, t>0, \\[0.2cm]
+        &u(x,0)=u_0(x), \enspace v(x,0)=v_0(x), \quad x\in\Omega,
+        \end{empheq}
+    \end{subequations}
+    where $u$ and $v$ represent density of
+    \alert{cells} and \alert{chemical-signal}, respectively.
+
+        \bigskip\par\indent From an analytical point of view, a lot of
+        research has been recently done (see e.g.~\cite{Winkler} and
+        references therein) and interesting results about global in
+        time existence, mass conservation, energy, blow-up and
+        positivity of solution have been published.  However, there is
+        not a large literature on \textit{numerical analysis}
+        for~(\ref{KSclasico}), and reproducing former properties
+        is an interesting challenge. This work is mainly
+        focused on development of \textit{positivity preserving
+          numerical schemes}, related to discontinous \textit{Galerkin
+          methods}, which \textit{decouple} calculus of $u$ and $v$.
+
+      \end{block}
+
+      \begin{block}{Energy-Stable Semi-Discretization in Time}
+        Given a partition of time interval $(0,T)$ into subintervals
+        of size $k>0$, we approximate $u$ and $v$ at each time step
+        $t^{m+1}$ by an implicit Euler scheme\footnote{However,
+          this work can be applied to higher order implicit methods
+          or, following \cite{anderson_high-order_2017} and references
+          therein, to parallel explicit high-order approximations via
+          Strong Stability Preserving (SSP) methods} as follows:
+        \begin{subequations}\label{tfgschemes}
+          \begin{empheq}[left=\empheqlbrace]{align}
+            &\delta_t u^{m+1}-\nabla u^{m+1} +\alpha_1\nabla\cdot(u^{m+1}\nabla v^{m+1})=0,\label{TFGschemes:a}\\
+            &\delta_t v^{m+1}-\alpha_2\nabla v^{m+1}+\alpha_3v^{m+1}-\alpha_4u^{m}=0, \label{TFGschemes:b}
+          \end{empheq}
+        \end{subequations}
+        where $\delta_t$ is the backward difference operator. For this
+        scheme, we can show the \property{energy-stability}: \textbf{(COMPLETAR A PARTIR DE TFG DE ALBA?)}
+      \end{block}
+
+      \begin{block}{MPP Space Discretization for~(\ref{TFGschemes:a})}
+        Let $\Th$ a mesh of $\Omega$ and let $\Uh$ be a space of
+        $\mathbb{P}_k^d$ (discontinous) polynomials in elements
+        $K\in\Th$ \textbf{(mejorar esta definición, como en
+          \cite{anderson_high-order_2017}, sección 2.1)}. We
+        fix\footnote{Results presented here might be improved to high
+          order space approximations by using Bernstein polynomials,
+          see\cite{anderson_high-order_2017}} $k=1$.  Let $\Vh$ be an
+        space of (conforming or not) FE. For each $m\ge 0$ let
+        $\vmm\in\Vh$ computed from~(\ref{TFGschemes:b}), where $\umm$
+        is replaced by $P_{\Vh}(\umm)$ (its $L^2(\Omega)$--projection
+        on $\Wh$)  and let $\wwmm=P_{\Uh^2}(\grad \vmm)$.
+
+        Let us consider the following discrete problem: find
+        $\umm\in\Uh$,
+        \begin{equation}
+          \int_\Omega \delta_t\umm \phi + a^{sip}(\umm,\phi) + a^{god}(\umm,\phi)=0 \quad \forall\phi\in\Uh,
+        \end{equation}
+        where
+        \begin{align*}
+          a^{sip}(u,\phi) &= \textbf{...completar...},
+          \\
+          a^{god}(u,\phi) &= -\sum_K \int_K u \, (\wwmm\cdot \grad\phi)
+                            + \sum_{e\in\Eh}\{ u \, \wwmm \cdot \nn_e\}_\star
+        \end{align*}
+        and
+        $$
+        \{ u \, \wwmm \cdot \nn_e\}_\star=\textbf{...completar...}
+        $$
+        is the Godunov (upwind) flux~\cite{anderson_high-order_2017}.
+
+      \end{block}
+
+    \end{column}
+
+
+
+    \begin{column}{\sepwid}  \end{column}
+
+    \vspace*{0.5cm}
+
+    \begin{column}{\onecolwid} %The second column
+
+      \begin{block}{Test 1. Time Schemes Convergence Order}
+        % To obtain error results, we add a function, $f$, in the second term at the first equation of \eqref{KSclasico}. Then we use the following data: $\Omega=[0,\pi]^2\subset\mathbb{R}^2$, $\alpha_i=1$ for $i=1,\dots,4$, $u_0=v_0=2+\cos{x}\cos{y}$, $f=-\alpha_1 (4\cos{x}\cos{y}(e^{2t}+\cos{x}\cos{y})-\cos^2{x}-\cos^2{y})e^{-4t}$. Discretization $50 \times 50$ P2-Lagrange, $k_i=4\cdot10^{-1}/2^i$ for $i=0,\dots,5$. The exact solution for this problem is $u=v=e^{-2t}\cos{x}\cos{y}+2$.
+
+        {\small
+          \textbf{Exact solution:} In order to compute error orders, we introduce the exact solution $u=v=e^{-2t}\cos{x}\cos{y}+2$, adding the following term to the right hand side of (1.a):
+          $$f=-\alpha_1 (4\cos{x}\cos{y}(e^{2t}+\cos{x}\cos{y})-\cos^2{x}-\cos^2{y})e^{-4t}.$$
+
+          \textbf{Experiment data:} $\Omega=[0,\pi]^2\subset\mathbb{R}^2$, $\alpha_i=1$ for $i=1,\dots,4$ and $u_0=v_0=2+\cos{x}\cos{y}$. Discretization $50 \times 50$ P2-Lagrange, $k_i=4\cdot10^{-1}/2^i$ for $i=0,\dots,5$. Here we show errors orders in norm $L^2(0,T; H^1(\Omega))$.
+          % Here we show errors orders in norms $L^2(0,T; L^2(\Omega)$ and $L^2(0,T; H^1(\Omega)$, denoted respectively $L$ and $H$.
+
+          % {\small
+          % \begin{table}
+          %   \centering
+          %   \begin{tabular}{c|c|c|c|c|c|c|c|c|c}
+          %     &
+          %     \multicolumn{4}{c|}{Order for $u$ function} & \multicolumn{4}{c|}{Order for $v$ function} &
+          %     \\
+          %     \cline{2-9}
+          %     & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4}
+          %     & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \\
+          %     \hline
+          %     \hline
+          %     \multirow{2}{4cm}{\centering$k_0\rightarrow k_1$}
+          %     &$0.802661$ &$0.435596$ &$1.311890$ &$2.029800$
+          %     &$0.799564$ &$0.648864$ &$1.170470$ &$2.039440$ & $L$\\
+          %     \cdashline{2-10}
+          %     &$0.804353$ &$0.434622$ &$1.310430$ &$2.033080$
+          %     &$0.799597$ &$0.648688$ &$1.171190$ &$2.047350$ & $H$\\
+          %     \hline
+          %     \multirow{2}{4cm}{\centering$k_1\rightarrow k_2$}
+          %     &$0.891670$ &$0.767058$ &$1.591350$ &$2.013560$
+          %     &$0.890092$ &$0.828197$ &$1.527130$ &$2.017720$ & $L$\\
+          %     \cdashline{2-10}
+          %     &$0.893043$ &$0.766919$ &$1.587290$ &$2.014170$
+          %     &$0.890190$ &$0.828141$ &$1.527410$ &$2.022340$& $H$\\
+          %     \hline
+          %     \multirow{2}{4cm}{\centering$k_2\rightarrow k_3$}
+          %     &$0.942681$ &$0.892557$ &$1.772000$ &$2.006150$
+          %     &$0.941641$ &$0.915157$ &$1.743990$ &$2.006230$ & $L$\\
+          %     \cdashline{2-10}
+          %     &$0.943492$ &$0.892585$ &$1.658900$ &$2.004790$
+          %     &$0.941714$ &$0.915135$ &$1.743460$ &$2.007090$ & $H$\\
+          %     \hline
+          %     \multirow{2}{4cm}{\centering$k_3\rightarrow k_4$}
+          %     &$0.979427$ &$0.948238$ &$1.878120$ &$2.002940$
+          %     &$0.969804$ &$0.957838$ &$1.865750$ &$2.002350$& $L$\\
+          %     \cdashline{2-10}
+          %     &$0.970858$ &$0.948276$ &$0.873038$ &$1.995890$
+          %     &$0.969845$ &$0.957821$ &$1.860400$ &$1.998580$ & $H$\\
+          %     \hline
+          %     \multirow{2}{4cm}{\centering$k_4\rightarrow k_5$}
+          %     &$0.984968$ &$0.974582$ &$1.935980$ &$2.001640$
+          %     &$0.984626$ &$0.978991$ &$1.931490$ &$2.001490$ & $L$\\
+          %     \cdashline{2-10}
+          %     &$0.985188$ &$0.974600$ &$0.998261$ &$1.985220$
+          %     &$0.984647$ &$0.978974$ &$1.899490$ &$1.976580$ & $H$\\
+          %     \hline
+          %     \multicolumn{1}{c}{}&
+          %     \multicolumn{4}{c}{}
+          %     & \multicolumn{4}{c}{}
+          %     &
+          %     \\*[-1cm]
+          %     \multicolumn{1}{c}{
+          %  			    % \includegraphics[height=350px]{Leyenda_order.png}
+          % }
+          %   &
+          %   \multicolumn{4}{c}{
+          %   \includegraphics[width=0.4\textwidth]{Errores_u_H1.png}}
+          %   & \multicolumn{4}{c}{
+          %   \includegraphics[width=0.4\textwidth]{Errores_v_H1.png}}
+          %   &
+          %   \\
+          % \end{tabular}
+          %
+          % \end{table}
+          % }
+          %   \vspace*{-0.5cm}
+          \begin{center}
+            % \begin{tabular}{|c|c|c|c|c|c|c}
+            %   \multicolumn{1}{c}{}&
+            %   \multicolumn{4}{c}{Convergence order for $u$} &
+            %   \multicolumn{1}{c}{}&
+            %   \multirow{10}{17cm}
+            %   {\includegraphics[width=17cm]{Errores_u_H1.png}}
+            %   \\
+            %   \cline{2-5}
+            %   \multicolumn{1}{c|}{}
+            %   & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} &
+            %   \multicolumn{1}{c}{} \\
+            %   \cline{1-6}
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_0\rightarrow k_1$}
+            %   &$0.802661$ &$0.435596$ &$1.311890$ &$2.029800$ & $L$\\
+            %   \cdashline{2-6}
+            %   &$0.804353$ &$0.434622$ &$1.310430$ &$2.033080$ & $H$\\
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_1\rightarrow k_2$}
+            %   &$0.891670$ &$0.767058$ &$1.591350$ &$2.013560$ & $L$\\
+            %   \cdashline{2-6}
+            %   &$0.893043$ &$0.766919$ &$1.587290$ &$2.014170$ & $H$\\
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_2\rightarrow k_3$}
+            %   &$0.942681$ &$0.892557$ &$1.772000$ &$2.006150$ & $L$\\
+            %   \cdashline{2-6}
+            %   &$0.943492$ &$0.892585$ &$1.658900$ &$2.004790$ & $H$\\
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_3\rightarrow k_4$}
+            %   &$0.979427$ &$0.948238$ &$1.878120$ &$2.002940$ & $L$\\
+            %   \cdashline{2-6}
+            %   &$0.970858$ &$0.948276$ &$0.873038$ &$1.995890$ & $H$\\
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_4\rightarrow k_5$}
+            %   &$0.984968$ &$0.974582$ &$1.935980$ &$2.001640$ & $L$\\
+            %   \cdashline{2-6}
+            %   &$0.985188$ &$0.974600$ &$0.998261$ &$1.985220$ & $H$\\
+            %   \cline{1-6}
+            % \end{tabular}
+
+            % \begin{tabular}{|c|c|c|c|c|c|c}
+            %   \multicolumn{1}{c}{}&
+            %   \multicolumn{4}{c}{Convergence order for $v$ } &
+            %   \multicolumn{1}{c}{}&
+            %   \multirow{10}{17cm}
+            %   {\includegraphics[width=17cm]{Errores_v_H1.png}}
+            %   \\
+            %   \cline{2-5}
+            %   \multicolumn{1}{c|}{}&
+            %   \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} &
+            %   \multicolumn{1}{c}{}\\
+            %   \cline{1-6}
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_0\rightarrow k_1$}
+            %   &$0.799564$ &$0.648864$ &$1.170470$ &$2.039440$ & $L $\\
+            %   \cdashline{2-6}
+            %   &$0.799597$ &$0.648688$ &$1.171190$ &$2.047350$ & $H $\\
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_1\rightarrow k_2$}
+            %   &$0.890092$ &$0.828197$ &$1.527130$ &$2.017720$ & $L $\\
+            %   \cdashline{2-6}
+            %   &$0.890190$ &$0.828141$ &$1.527410$ &$2.022340$& $H $\\
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_2\rightarrow k_3$}
+            %   &$0.941641$ &$0.915157$ &$1.743990$ &$2.006230$ & $L $\\
+            %   \cdashline{2-6}
+            %   &$0.941714$ &$0.915135$ &$1.743460$ &$2.007090$ & $H $\\
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_3\rightarrow k_4$}
+            %   &$0.969804$ &$0.957838$ &$1.865750$ &$2.002350$& $L $\\
+            %   \cdashline{2-6}
+            %   &$0.969845$ &$0.957821$ &$1.860400$ &$1.998580$ & $H $\\
+            %   \cline{1-6}
+            %   \multirow{2}{4cm}{\centering$k_4\rightarrow k_5$}
+            %   &$0.984626$ &$0.978991$ &$1.931490$ &$2.001490$ & $L $\\
+            %   \cdashline{2-6}
+            %   &$0.984647$ &$0.978974$ &$1.899490$ &$1.976580$ & $H $\\
+            %   \cline{1-6}
+            % \end{tabular}
+          \end{center}
+        }
+      \end{block}
+
+      \vspace{0.2cm}
+
+      \begin{block}{Test 2. Blow-up and Positivity}
+      \end{block}
+
+    \end{column}
+
+    \begin{column}{\sepmargin} \end{column}
+  \end{columns}
+
+
+
+  \vspace*{0.5cm}
+  \begin{columns}[t]
+    \begin{column}{\sepmargin}\end{column}
+    \begin{column}{0.97\linewidth}
+      {\color{blueMUW}\rule{1.012\textwidth}{10pt}}
+    \end{column}
+    \begin{column}{\sepmargin}\end{column}
+  \end{columns}
+
+  \vspace*{-1cm}
+  \begin{columns}[t] % Split up the two columns wide column again
+
+    \begin{column}{\sepmargin} \end{column}
+    \begin{column}{\onecolwid}
+      \begin{block}{\large References}
+        \vspace*{-0.5cm}
+        \nocite{*} % Insert publications even if they are not cited in the poster
+        {\footnotesize
+          % \bibliographystyle{plainurl}
+          \bibliography{bibliog.bib}}
+      \end{block}
+    \end{column} % End of the second column
+    \begin{column}{\sepwid}  \end{column}
+
+    \begin{column}{\onecolwid}
+      \begin{block}{\large Acknowledgement}
+        \vspace*{-0.5cm}
+        \footnotesize Second author is partially supported by the research group FQM-315 of Junta de Andalucı\'ia and by the project: New methods for predicting, manufacturing and application of shimming (FUTURE SHIMMING) -UIC AIRBUS, and the research team: Mathematics for Computational Intelligence Systems (M$\cdot$CIS).
+      \end{block}
+      \vspace*{-0.5cm}
+
+      \begin{block}{\large Contact}
+        \vspace*{-0.5cm}
+        \footnotesize
+        $^1$\emph{daniel.acostsoba@alum.uca.es}
+
+        $^2$\emph{alba.navarroiz@alum.uca.es}
+
+        $^3$\emph{rafael.rodriguez@uca.es}
+      \end{block}
+    \end{column}
+
+    \begin{column}{\sepmargin}\end{column} % Empty spacer column
+
+
+
+  \end{columns} % End of all the columns in the poster
+
+\end{frame} % End of the enclosing frame
+
+\end{document}
