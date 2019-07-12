@@ -47,6 +47,7 @@
 \usepackage{ragged2e} % Justify text
 \addtobeamertemplate{block begin}{}{\justifying} % Justify all blocks
 \renewcommand{\indent}{\hspace*{2em}}
+\newtheorem{proposition}{Proposition}
 
 \bibliographystyle{nat}
 \renewcommand{\vec}[1]{\ushort{#1}}
@@ -202,17 +203,17 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
     where $u$ and $v$ represent density of
     \alert{cells} and \alert{chemical-signal}, respectively.
 
-        \bigskip\par\indent From an analytical point of view, a lot of
-        research has been recently done (see e.g.~\cite{Winkler} and
-        references therein) and interesting results about global in
-        time existence, mass conservation, energy, blow-up and
-        positivity of solution have been published.  However, there is
-        not a large literature on \textit{numerical analysis}
-        for~(\ref{KSclasico}), and reproducing former properties
-        is an interesting challenge. This work is mainly
-        focused on development of \textit{positivity preserving
-          numerical schemes}, related to discontinuous \textit{Galerkin
-          methods}, which \textit{decouple} calculus of $u$ and $v$.
+    \bigskip\par\indent From an analytical point of view, a lot of
+    research has been recently done (see e.g.~\cite{Winkler} and
+    references therein) and interesting results about global in time
+    existence, \alert{mass conservation}, \alert{energy}, blow-up and
+    \alert{positivity of solution} have been published.  However,
+    there is not a large literature on \textit{numerical analysis}
+    for~(\ref{KSclasico}), and reproducing former properties is an
+    interesting challenge. This work is mainly focused on development
+    of \textit{positivity preserving numerical schemes}, related to
+    discontinuous \textit{Galerkin methods}, which \textit{decouple}
+    calculus of $u$ and $v$.
 
       \end{block}
 
@@ -226,26 +227,30 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
           Strong Stability Preserving (SSP) methods} as follows:
         \begin{subequations}\label{tfgschemes}
           \begin{empheq}[left=\empheqlbrace]{align}
-            &\delta_t u^{m+s}-\nabla u^{m+s} +\alpha_1\nabla\cdot(u^{m+s}\nabla v^{m+s})=0,\label{TFGschemes:a}\\
-            &\delta_t v^{m+s}-\alpha_2\nabla v^{m+s}+\alpha_3v^{m+s}-\alpha_4u^{m}=0, \label{TFGschemes:b}
+            &\delta_t v^{m+s}-\alpha_2\nabla v^{m+s}+\alpha_3v^{m+s}-\alpha_4u^{m}=0, \label{TFGschemes:b} \\
+            &\delta_t u^{m+s}-\alpha_0\Delta u^{m+s} +\alpha_1\nabla\cdot(u^{m+s}\nabla v^{m+s})=0,\label{TFGschemes:a}
           \end{empheq}
         \end{subequations}
         where $s\in\{0,1\}$ and $\delta_t$ is the backward difference
         operator. For this schemes, \property{energy-stability} (for
-        an adequate discrete energy functional) can be shown:
+        an adequate discrete energy functional) can be shown~\cite{Alba_TFG}.
       \end{block}
 
       \begin{block}{Space Discretization for~(\ref{TFGschemes:a})}
-        Let $\Th$ be a mesh of $\Omega$ and we define $\Uh=\{\phi\in L^2(\Omega)\colon\phi|_K\in\mathbb{P}_k(K),\forall K\in\mathcal{T}_h \}$ where
-        $\mathbb{P}_k(K)$ is a polynomial space over the element
-        $K\in\Th$. Let $\{\phi_1,\ldots,\phi_N\}$ be a basis of $U_h$, where $N=\text{dim}(U_h)$. We
-        fix\footnote{Results presented here might be improved to high
-          order space approximations by using Bernstein polynomials,
+        Let $\Th$ be a mesh of $\Omega$ and we define
+        $\Uh=\{\phi\in
+        L^2(\Omega)\colon\phi|_K\in\mathbb{P}_k(K),\forall
+        K\in\mathcal{T}_h \}$ where $\mathbb{P}_k(K)$ is a polynomial
+        space over the element $K\in\Th$. Let
+        $\{\phi_1,\ldots,\phi_N\}$ be a basis of $U_h$, where
+        $N=\text{dim}(U_h)$. We fix\footnote{Results presented here
+          might be improved to high order space approximations by
+          using Bernstein polynomials,
           see\cite{anderson_high-order_2017}} $k=1$.  Let $\Vh$ be an
         space of (conforming or not) FE. For each $m\ge 0$ let
         $\vmm\in\Vh$ computed from~(\ref{TFGschemes:b}), where $\umm$
         is replaced by $P_{\Vh}(\umm)$ (its $L^2(\Omega)$--projection
-        on $\Vh$)  and let $\wwmm=P_{\Uh^2}(\grad \vmm)$.
+        on $\Vh$) and let $\wwmm=P_{\Uh^2}(\grad \vmm)$.
 
         Let us consider the following discrete problem: find
         $\umm\in\Uh$,
@@ -283,7 +288,7 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
     \begin{subequations}\label{matrix_eq_u}
       \begin{align}
         &M \; (\delta_t\Umm) + K\, U^{m+s} = 0, \quad \text{ where}
-        \\[0.5ex]
+        \\[0.1ex]
         &M_{ij} = \int_\Omega \Phi_i\Phi_j,
         % \quad K&=D+C,
         % \quad D_{ij}=\asip(\Phi_i,\Phi_j),
@@ -291,24 +296,35 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
         \quad K_{ij}=\asip(\Phi_i,\Phi_j)+\agod(\Phi_i,\Phi_j).
       \end{align}
     \end{subequations}
-    Now we consider the \alert{mass lumped} and the \alert{discrete
-      upwinded} matrices, $M^\star$ and $K^\star$:
-    \begin{subequations}
-
+    Let us consider the system
+    \begin{subequations}\label{lumped_matrix_eq_u}
+      \begin{align}
+        &M^\star \; (\delta_t\Umm) + K^\star \, U^{m+s} = 0,
+          \intertext{where $M^\star$ is the \alert{mass lumped} matrix and $K^\star$ is the \alert{discrete
+          upwinded} matrix:}
+        & K^\star = K + L, \quad L_{ij}=\max(0,-K_{ij},-K_{ji}) \enspace \text{if } i\neq j, \quad L_{ii}=-\sum_{j\neq i} L_{ij}.
+      \end{align}
     \end{subequations}
+    Then, \textbf{\alert{system~(\ref{lumped_matrix_eq_u}) is
+        MPP}}. This result can be shown if
+    $v\in L^\infty(0,T;W^{1,\infty}(\Omega))$ and $s=0$, using the
+    fact that $\sum_i K_{ij}=0$~\cite{anderson_high-order_2017} and is
+    conjectured for the general case.
+
+
+
       \end{block}
 
 
       \vspace{0.2cm}
 
-      \begin{block}{Test 2. Blow-up and Positivity}
+      \begin{block}{Mass Conservation}
       \end{block}
 
     \end{column}
 
     \begin{column}{\sepmargin} \end{column}
   \end{columns}
-
 
 
   \vspace*{0.5cm}
