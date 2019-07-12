@@ -258,12 +258,12 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
         \begin{align*}
           \asip(u,\phi) &= \sum_{K\in\mathcal{T}_h}\int_K\nabla_h u\nabla_h \phi-\sum_{e\in\mathcal{E}_h}\int_e\left(\average{\nabla_h u\cdot\mathbf{n}_e}\jump{\phi}+\average{\nabla_h \phi\cdot\mathbf{n}_e}\jump{u}\right)\\&+\sigma\sum_{e\in\mathcal{E}_h}\int_e\frac{1}{h_e}\jump{u}\jump{\phi},
           \\
-          \agod(u,\phi) &= -\sum_K \int_K u \, (\wwmm\cdot \grad\phi)
+          \agod(u,\phi) &= -\sum_{K \in\mathcal{T}_h} \int_K u \, (\wwmm\cdot \grad\phi)
                             + \sum_{e\in\Eh}\{ u \, \wwmm \cdot \nn_e\}_\star
         \end{align*}
         and
         $$
-        \{ u \, \wwmm \cdot \nn_e\}_\star=\textbf{...completar...}
+        \{ u \, \wwmm \cdot \nn_e\}_\star=(\wwmm\cdot \nn_e)\left(\frac{u|_{K_1}+u|_{K_2}}{2}\right)-\frac{1}{2}|\wwmm\cdot\nn_e|\jump{u}
         $$
         is the Godunov (upwind) flux~\cite{anderson_high-order_2017}.
 
