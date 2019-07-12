@@ -211,7 +211,7 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
         for~(\ref{KSclasico}), and reproducing former properties
         is an interesting challenge. This work is mainly
         focused on development of \textit{positivity preserving
-          numerical schemes}, related to discontinous \textit{Galerkin
+          numerical schemes}, related to discontinuous \textit{Galerkin
           methods}, which \textit{decouple} calculus of $u$ and $v$.
 
       \end{block}
@@ -235,18 +235,17 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
         an adequate discrete energy functional) can be shown:
       \end{block}
 
-      \begin{block}{MPP Space Discretization for~(\ref{TFGschemes:a})}
-        Let $\Th$ a mesh of $\Omega$ and let $\Uh$ be a space of
-        $\mathbb{P}_k^d$ (discontinous) polynomials in elements
-        $K\in\Th$ \textbf{(mejorar esta definición, como en
-          \cite{anderson_high-order_2017}, sección 2.1)}. We
+      \begin{block}{Space Discretization for~(\ref{TFGschemes:a})}
+        Let $\Th$ be a mesh of $\Omega$ and we define $\Uh=\{\phi\in L^2(\Omega)\colon\phi|_K\in\mathbb{P}_k(K),\forall K\in\mathcal{T}_h \}$ where
+        $\mathbb{P}_k(K)$ is a polynomial space over the element
+        $K\in\Th$. Let $\{\phi_1,\ldots,\phi_N\}$ be a basis of $U_h$, where $N=\text{dim}(U_h)$. We
         fix\footnote{Results presented here might be improved to high
           order space approximations by using Bernstein polynomials,
           see\cite{anderson_high-order_2017}} $k=1$.  Let $\Vh$ be an
         space of (conforming or not) FE. For each $m\ge 0$ let
         $\vmm\in\Vh$ computed from~(\ref{TFGschemes:b}), where $\umm$
         is replaced by $P_{\Vh}(\umm)$ (its $L^2(\Omega)$--projection
-        on $\Wh$)  and let $\wwmm=P_{\Uh^2}(\grad \vmm)$.
+        on $\Vh$)  and let $\wwmm=P_{\Uh^2}(\grad \vmm)$.
 
         Let us consider the following discrete problem: find
         $\umm\in\Uh$,
