@@ -226,12 +226,13 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
           Strong Stability Preserving (SSP) methods} as follows:
         \begin{subequations}\label{tfgschemes}
           \begin{empheq}[left=\empheqlbrace]{align}
-            &\delta_t u^{m+1}-\nabla u^{m+1} +\alpha_1\nabla\cdot(u^{m+1}\nabla v^{m+1})=0,\label{TFGschemes:a}\\
-            &\delta_t v^{m+1}-\alpha_2\nabla v^{m+1}+\alpha_3v^{m+1}-\alpha_4u^{m}=0, \label{TFGschemes:b}
+            &\delta_t u^{m+s}-\nabla u^{m+s} +\alpha_1\nabla\cdot(u^{m+s}\nabla v^{m+s})=0,\label{TFGschemes:a}\\
+            &\delta_t v^{m+s}-\alpha_2\nabla v^{m+s}+\alpha_3v^{m+s}-\alpha_4u^{m}=0, \label{TFGschemes:b}
           \end{empheq}
         \end{subequations}
-        where $\delta_t$ is the backward difference operator. For this
-        scheme, we can show the \property{energy-stability}: \textbf{(COMPLETAR A PARTIR DE TFG DE ALBA?)}
+        where $s\in\{0,1\}$ and $\delta_t$ is the backward difference
+        operator. For this schemes, \property{energy-stability} (for
+        an adequate discrete energy functional) can be shown:
       \end{block}
 
       \begin{block}{MPP Space Discretization for~(\ref{TFGschemes:a})}
@@ -277,167 +278,14 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
     \vspace*{0.5cm}
 
     \begin{column}{\onecolwid} %The second column
-
-      \begin{block}{Test 1. Time Schemes Convergence Order}
-        % To obtain error results, we add a function, $f$, in the second term at the first equation of \eqref{KSclasico}. Then we use the following data: $\Omega=[0,\pi]^2\subset\mathbb{R}^2$, $\alpha_i=1$ for $i=1,\dots,4$, $u_0=v_0=2+\cos{x}\cos{y}$, $f=-\alpha_1 (4\cos{x}\cos{y}(e^{2t}+\cos{x}\cos{y})-\cos^2{x}-\cos^2{y})e^{-4t}$. Discretization $50 \times 50$ P2-Lagrange, $k_i=4\cdot10^{-1}/2^i$ for $i=0,\dots,5$. The exact solution for this problem is $u=v=e^{-2t}\cos{x}\cos{y}+2$.
-
-        {\small
-          \textbf{Exact solution:} In order to compute error orders, we introduce the exact solution $u=v=e^{-2t}\cos{x}\cos{y}+2$, adding the following term to the right hand side of (1.a):
-          $$f=-\alpha_1 (4\cos{x}\cos{y}(e^{2t}+\cos{x}\cos{y})-\cos^2{x}-\cos^2{y})e^{-4t}.$$
-
-          \textbf{Experiment data:} $\Omega=[0,\pi]^2\subset\mathbb{R}^2$, $\alpha_i=1$ for $i=1,\dots,4$ and $u_0=v_0=2+\cos{x}\cos{y}$. Discretization $50 \times 50$ P2-Lagrange, $k_i=4\cdot10^{-1}/2^i$ for $i=0,\dots,5$. Here we show errors orders in norm $L^2(0,T; H^1(\Omega))$.
-          % Here we show errors orders in norms $L^2(0,T; L^2(\Omega)$ and $L^2(0,T; H^1(\Omega)$, denoted respectively $L$ and $H$.
-
-          % {\small
-          % \begin{table}
-          %   \centering
-          %   \begin{tabular}{c|c|c|c|c|c|c|c|c|c}
-          %     &
-          %     \multicolumn{4}{c|}{Order for $u$ function} & \multicolumn{4}{c|}{Order for $v$ function} &
-          %     \\
-          %     \cline{2-9}
-          %     & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4}
-          %     & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \\
-          %     \hline
-          %     \hline
-          %     \multirow{2}{4cm}{\centering$k_0\rightarrow k_1$}
-          %     &$0.802661$ &$0.435596$ &$1.311890$ &$2.029800$
-          %     &$0.799564$ &$0.648864$ &$1.170470$ &$2.039440$ & $L$\\
-          %     \cdashline{2-10}
-          %     &$0.804353$ &$0.434622$ &$1.310430$ &$2.033080$
-          %     &$0.799597$ &$0.648688$ &$1.171190$ &$2.047350$ & $H$\\
-          %     \hline
-          %     \multirow{2}{4cm}{\centering$k_1\rightarrow k_2$}
-          %     &$0.891670$ &$0.767058$ &$1.591350$ &$2.013560$
-          %     &$0.890092$ &$0.828197$ &$1.527130$ &$2.017720$ & $L$\\
-          %     \cdashline{2-10}
-          %     &$0.893043$ &$0.766919$ &$1.587290$ &$2.014170$
-          %     &$0.890190$ &$0.828141$ &$1.527410$ &$2.022340$& $H$\\
-          %     \hline
-          %     \multirow{2}{4cm}{\centering$k_2\rightarrow k_3$}
-          %     &$0.942681$ &$0.892557$ &$1.772000$ &$2.006150$
-          %     &$0.941641$ &$0.915157$ &$1.743990$ &$2.006230$ & $L$\\
-          %     \cdashline{2-10}
-          %     &$0.943492$ &$0.892585$ &$1.658900$ &$2.004790$
-          %     &$0.941714$ &$0.915135$ &$1.743460$ &$2.007090$ & $H$\\
-          %     \hline
-          %     \multirow{2}{4cm}{\centering$k_3\rightarrow k_4$}
-          %     &$0.979427$ &$0.948238$ &$1.878120$ &$2.002940$
-          %     &$0.969804$ &$0.957838$ &$1.865750$ &$2.002350$& $L$\\
-          %     \cdashline{2-10}
-          %     &$0.970858$ &$0.948276$ &$0.873038$ &$1.995890$
-          %     &$0.969845$ &$0.957821$ &$1.860400$ &$1.998580$ & $H$\\
-          %     \hline
-          %     \multirow{2}{4cm}{\centering$k_4\rightarrow k_5$}
-          %     &$0.984968$ &$0.974582$ &$1.935980$ &$2.001640$
-          %     &$0.984626$ &$0.978991$ &$1.931490$ &$2.001490$ & $L$\\
-          %     \cdashline{2-10}
-          %     &$0.985188$ &$0.974600$ &$0.998261$ &$1.985220$
-          %     &$0.984647$ &$0.978974$ &$1.899490$ &$1.976580$ & $H$\\
-          %     \hline
-          %     \multicolumn{1}{c}{}&
-          %     \multicolumn{4}{c}{}
-          %     & \multicolumn{4}{c}{}
-          %     &
-          %     \\*[-1cm]
-          %     \multicolumn{1}{c}{
-          %  			    % \includegraphics[height=350px]{Leyenda_order.png}
-          % }
-          %   &
-          %   \multicolumn{4}{c}{
-          %   \includegraphics[width=0.4\textwidth]{Errores_u_H1.png}}
-          %   & \multicolumn{4}{c}{
-          %   \includegraphics[width=0.4\textwidth]{Errores_v_H1.png}}
-          %   &
-          %   \\
-          % \end{tabular}
-          %
-          % \end{table}
-          % }
-          %   \vspace*{-0.5cm}
-          \begin{center}
-            % \begin{tabular}{|c|c|c|c|c|c|c}
-            %   \multicolumn{1}{c}{}&
-            %   \multicolumn{4}{c}{Convergence order for $u$} &
-            %   \multicolumn{1}{c}{}&
-            %   \multirow{10}{17cm}
-            %   {\includegraphics[width=17cm]{Errores_u_H1.png}}
-            %   \\
-            %   \cline{2-5}
-            %   \multicolumn{1}{c|}{}
-            %   & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} &
-            %   \multicolumn{1}{c}{} \\
-            %   \cline{1-6}
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_0\rightarrow k_1$}
-            %   &$0.802661$ &$0.435596$ &$1.311890$ &$2.029800$ & $L$\\
-            %   \cdashline{2-6}
-            %   &$0.804353$ &$0.434622$ &$1.310430$ &$2.033080$ & $H$\\
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_1\rightarrow k_2$}
-            %   &$0.891670$ &$0.767058$ &$1.591350$ &$2.013560$ & $L$\\
-            %   \cdashline{2-6}
-            %   &$0.893043$ &$0.766919$ &$1.587290$ &$2.014170$ & $H$\\
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_2\rightarrow k_3$}
-            %   &$0.942681$ &$0.892557$ &$1.772000$ &$2.006150$ & $L$\\
-            %   \cdashline{2-6}
-            %   &$0.943492$ &$0.892585$ &$1.658900$ &$2.004790$ & $H$\\
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_3\rightarrow k_4$}
-            %   &$0.979427$ &$0.948238$ &$1.878120$ &$2.002940$ & $L$\\
-            %   \cdashline{2-6}
-            %   &$0.970858$ &$0.948276$ &$0.873038$ &$1.995890$ & $H$\\
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_4\rightarrow k_5$}
-            %   &$0.984968$ &$0.974582$ &$1.935980$ &$2.001640$ & $L$\\
-            %   \cdashline{2-6}
-            %   &$0.985188$ &$0.974600$ &$0.998261$ &$1.985220$ & $H$\\
-            %   \cline{1-6}
-            % \end{tabular}
-
-            % \begin{tabular}{|c|c|c|c|c|c|c}
-            %   \multicolumn{1}{c}{}&
-            %   \multicolumn{4}{c}{Convergence order for $v$ } &
-            %   \multicolumn{1}{c}{}&
-            %   \multirow{10}{17cm}
-            %   {\includegraphics[width=17cm]{Errores_v_H1.png}}
-            %   \\
-            %   \cline{2-5}
-            %   \multicolumn{1}{c|}{}&
-            %   \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} &
-            %   \multicolumn{1}{c}{}\\
-            %   \cline{1-6}
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_0\rightarrow k_1$}
-            %   &$0.799564$ &$0.648864$ &$1.170470$ &$2.039440$ & $L $\\
-            %   \cdashline{2-6}
-            %   &$0.799597$ &$0.648688$ &$1.171190$ &$2.047350$ & $H $\\
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_1\rightarrow k_2$}
-            %   &$0.890092$ &$0.828197$ &$1.527130$ &$2.017720$ & $L $\\
-            %   \cdashline{2-6}
-            %   &$0.890190$ &$0.828141$ &$1.527410$ &$2.022340$& $H $\\
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_2\rightarrow k_3$}
-            %   &$0.941641$ &$0.915157$ &$1.743990$ &$2.006230$ & $L $\\
-            %   \cdashline{2-6}
-            %   &$0.941714$ &$0.915135$ &$1.743460$ &$2.007090$ & $H $\\
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_3\rightarrow k_4$}
-            %   &$0.969804$ &$0.957838$ &$1.865750$ &$2.002350$& $L $\\
-            %   \cdashline{2-6}
-            %   &$0.969845$ &$0.957821$ &$1.860400$ &$1.998580$ & $H $\\
-            %   \cline{1-6}
-            %   \multirow{2}{4cm}{\centering$k_4\rightarrow k_5$}
-            %   &$0.984626$ &$0.978991$ &$1.931490$ &$2.001490$ & $L $\\
-            %   \cdashline{2-6}
-            %   &$0.984647$ &$0.978974$ &$1.899490$ &$1.976580$ & $H $\\
-            %   \cline{1-6}
-            % \end{tabular}
-          \end{center}
-        }
+      \begin{block}{Maximum Principle Preserving (MPP)}
+        Method~(\ref{discrete_problem_u}) can be recast as:
+        \begin{equation}
+          \label{eq:1}
+          M \delta_t \umm = K \um
+        \end{equation}
       \end{block}
+
 
       \vspace{0.2cm}
 
