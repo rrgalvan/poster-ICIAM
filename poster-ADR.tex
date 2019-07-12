@@ -279,11 +279,24 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
 
     \begin{column}{\onecolwid} %The second column
       \begin{block}{Maximum Principle Preserving (MPP)}
-        Method~(\ref{discrete_problem_u}) can be recast as:
-        \begin{equation}
-          \label{eq:1}
-          M \delta_t \umm = K \um
-        \end{equation}
+        Equation~(\ref{TFGschemes:a}) can be recast as:
+        \medskip
+    \begin{subequations}\label{matrix_eq_u}
+      \begin{align}
+        &M \; (\delta_t\Umm) + K\, U^{m+s} = 0, \quad \text{ where}
+        \\[0.5ex]
+        &M_{ij} = \int_\Omega \Phi_i\Phi_j,
+        % \quad K&=D+C,
+        % \quad D_{ij}=\asip(\Phi_i,\Phi_j),
+        % \quad C_{ij}=\agod(\Phi_i,\Phi_j).
+        \quad K_{ij}=\asip(\Phi_i,\Phi_j)+\agod(\Phi_i,\Phi_j).
+      \end{align}
+    \end{subequations}
+    Now we consider the \alert{mass lumped} and the \alert{discrete
+      upwinded} matrices, $M^\star$ and $K^\star$:
+    \begin{subequations}
+
+    \end{subequations}
       \end{block}
 
 
