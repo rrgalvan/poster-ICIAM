@@ -21,7 +21,7 @@
 
 \documentclass[final]{beamer}
 
-\usepackage[scale=1.1]{beamerposter} % Use the beamerposter package
+\usepackage[scale=1.09]{beamerposter} % Use the beamerposter package
 
 
 % Include a logo of your project if desired
@@ -333,16 +333,16 @@
           implicit Euler ($s=1$).
           \begin{columns}
             \column{0.5\textwidth}
-            \includegraphics[width=\textwidth]{negative_min_u_k1=1,2,3,4.png}
-            \alert{$\mathbb{P}_1$--continuous} FE approximation of
+            \includegraphics[width=0.9\textwidth]{negative_min_u_k1=1,2,3,4.png}
+            \alert{$\mathbb{P}_1$--\textbf{continuous FE}} approximation of
             scheme~(\ref{TFGschemes:a}). \textbf{Loss of positivity}
             $\forall k_2\in\{1,2,3,4\}$.
 
             \column{0.5\textwidth}
-            \includegraphics[width=\textwidth]{positive_min_u_k1=1,2,3,4.png}
-            \alert{$\mathbb{P}_1$--discontinuous} FE approximation of
-            scheme~(\ref{TFGschemes:a}). \structure{\textbf{Positivity}
-              $\forall k_2\in\{1,2,3,4\}$ !!}
+            \includegraphics[width=0.9\textwidth]{positive_min_u_k1=1,2,3,4.png}
+            \alert{$\mathbb{P}_1$--\textbf{discontinuous Galerkin}}
+            approximation. \structure{\textbf{Positivity is
+                achieved} $\forall k_2\in\{1,2,3,4\}$ !!}
           \end{columns}
         \end{small}
       \end{block}
@@ -351,28 +351,42 @@
       \vspace{0.2cm}
 
       \begin{block}{Mass Conservation}
-        \begin{columns}
-          \column{0.63\textwidth}
           The method (\ref{discrete_problem_u}) is mass conservative in the following sense:
-          \begin{equation*}
-            \int_\Omega \umm = \int_\Omega \uh^0,
-            % \label{eq:mass_conservation}
-          \end{equation*}
-          what can be seen using the fact $\sum_i K_{ij}=0$. However, this
-          property is \alert{not verified} by the discrete upwinded
-          scheme~(\ref{discrete_upwinded_eq_u}) because, in the general
-          case, $\div\wwmm\neq 0$ thus zero column sums property is
-          not valid for $K$.
-          \column{0.37\textwidth}
-          \includegraphics[width=\textwidth]{positive_scheme_mass_k1=1,2,3,4.png}
-          \small
-            \alert{$\mathbb{P}_1$--discontinuous} approximation with
-            same previous data. Mass conservation is \alert{\textbf{not satisfied}} for $u$,
-              $k_2\in\{1,2,3,4\}$,
+            $\int_\Omega \umm = \int_\Omega \uh^0$,
+          what can be seen using the fact $\sum_i K_{ij}=0$. However,
+          this property is \alert{not verified} by the discrete
+          upwinded scheme~(\ref{discrete_upwinded_eq_u}) because, in
+          the general case, $\div\wwmm\neq 0$ thus zero column sums
+          property is not valid for $K$.
+
+          \bigskip\par
+          \textbf{Numerical Tests}: Approximate mass
+          conservation for the explicit ($s=0$) method (left) but not
+          for the implicit $(s=1)$ one (right). Same parameters than
+          previous tests.
+        \begin{columns}
+          \column{0.5\textwidth}
+          \includegraphics[width=0.8\textwidth]{positive_EXPLICIT_scheme_mass_k1=1,2,3,4.png}
+          \par
+          \small \alert{Explicit} scheme: {approximate mass
+            conservation} for $u$, $k_2\in\{1,2,3,4\}$,
+          \column{0.5\textwidth}
+
+          \includegraphics[width=0.8\textwidth]{positive_scheme_mass_k1=1,2,3,4.png}
+          \par
+          \small \alert{Implicit} scheme: mass conservation is
+          \alert{{not satisfied}} for $u$, $k_2\in\{1,2,3,4\}$,
         \end{columns}
       \end{block}
 
       \begin{block}{Conclusions and Future Work}
+        \small
+        \begin{itemize}
+        \item We have developed a \textbf{positive preserving} numerical scheme for classical Keller-Segel equations.
+        \item It is based on (implicit and explicit) time scheme which \textbf{decouple calculus} of $u$ and $v$.
+        \item \textbf{Discontinuous Galerkin} space approximation for cell density, $u$, FE approximation for chemical $v$.
+        \item Future work: improve space approximation for $v$, \textbf{improve mass conservation}!!
+        \end{itemize}
       \end{block}
 
     \end{column}
