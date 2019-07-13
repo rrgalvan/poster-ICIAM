@@ -5,7 +5,7 @@
 % (Based on Version 1.0 (31/08/2015) of the Jacobs Portrait Poster
 %
 % License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% CC BY-NC-S3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 %
 % Created by:
 % Nicolas Ballarini, CeMSIIS, Medical University of Vienna
@@ -246,14 +246,16 @@
         $N=\text{dim}(U_h)$. We fix\footnote{Results presented here
           might be improved to high order space approximations by
           using Bernstein polynomials,
-          see\cite{anderson_high-order_2017}} $k=1$.  Let $\Vh$ be an
-        space of (conforming or not) FE. For each $m\ge 0$ let
-        $\vmm\in\Vh$ computed from~(\ref{TFGschemes:b}), where $\umm$
-        is replaced by $P_{\Vh}(\umm)$ (its $L^2(\Omega)$--projection
-        on $\Vh$) and let $\wwmm=P_{\Uh^2}(\grad \vmm)$.
+          see\cite{anderson_high-order_2017}} $k=1$.
 
-        Let us consider the following discrete problem: find
-        $\umm\in\Uh$,
+        \bigskip\par\indent Let $\Vh$ be an
+        space of (conforming or not) FE. For each, $m\ge 0$ we compute
+        $\vmm\in\Vh$ from~(\ref{TFGschemes:b}), where the discontinuous function $\um\in\Uh$
+        is replaced by $P_{\Vh}(\um)$, its $L^2(\Omega)$--projection
+        on $\Vh$. Then we define $\wwmm = \grad \vmm \in \Uh^2$.
+
+        \bigskip\par\indent Let us consider the following discrete problem: find
+        $\umm\in\Uh$ such that
         \begin{equation}
           \label{discrete_problem_u}
           \int_\Omega \delta_t\umm \phi + \asip(\umm,\phi) + \agod(\umm,\phi)=0 \quad \forall\phi\in\Uh,
