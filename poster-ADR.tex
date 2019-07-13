@@ -60,7 +60,7 @@
 \setbeamercolor{block title}{bg=white, fg = hellblauMUW}
 
 \setbeamercolor{alerted text}{fg=greenMUW!200}
-
+\setbeamercolor{structured text}{fg=hellblauMUW}
 % -----------------------------------------------
 % START Set the colors
 % Uncomment to apply colors you want to use.
@@ -131,16 +131,16 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \newcommand{\pageframe}{%
-\begin{tikzpicture}[remember picture, overlay]
-% page frame
-\fill [themecolor] (current page.north west)
-rectangle (current page.south east);
-\fill [white, rounded corners=1cm] ($(current page.north west)+(1cm,-2cm)$)
-rectangle ($(current page.south east)+(-1cm,2cm)$);
-% \strut gives all page mark nodes the same hight.
-\node[inner sep=0pt] (russell) at ($(current page.north east)+(-11cm,-11cm)$)
-{\includegraphics[width=.15\textwidth]{ProjectLogo.jpg}};
-\end{tikzpicture}
+  \begin{tikzpicture}[remember picture, overlay]
+    % page frame
+    \fill [themecolor] (current page.north west)
+    rectangle (current page.south east);
+    \fill [white, rounded corners=1cm] ($(current page.north west)+(1cm,-2cm)$)
+    rectangle ($(current page.south east)+(-1cm,2cm)$);
+    % \strut gives all page mark nodes the same hight.
+    \node[inner sep=0pt] (russell) at ($(current page.north east)+(-11cm,-11cm)$)
+    {\includegraphics[width=.15\textwidth]{ProjectLogo.jpg}};
+  \end{tikzpicture}
 
 }
 % set page style
@@ -162,58 +162,58 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
 
 \begin{frame}[t] % The whole poster is enclosed in one beamer frame
 
-\begin{columns}[t]
-\begin{column}{\sepmargin}\end{column}
+  \begin{columns}[t]
+    \begin{column}{\sepmargin}\end{column}
 
-\begin{column}{0.97\linewidth}
-    \vskip2cm
-    \raggedright
-    \usebeamercolor{title in headline}{\color{blueMUW}\Huge{\textbf{\inserttitle}}\\[1.5ex] \par}
-    \usebeamercolor{author in headline}{\color{blueMUW}\LARGE{\insertauthor}\\[1ex]}
-    \usebeamercolor{institute in headline}{\color{blueMUW}\normalsize{\insertinstitute}}{\color{blueMUW}}
-    \vspace*{0.5cm}
+    \begin{column}{0.97\linewidth}
+      \vskip2cm
+      \raggedright
+      \usebeamercolor{title in headline}{\color{blueMUW}\Huge{\textbf{\inserttitle}}\\[1.5ex] \par}
+      \usebeamercolor{author in headline}{\color{blueMUW}\LARGE{\insertauthor}\\[1ex]}
+      \usebeamercolor{institute in headline}{\color{blueMUW}\normalsize{\insertinstitute}}{\color{blueMUW}}
+      \vspace*{0.5cm}
 
-    \rule{1.012\textwidth}{10pt}
-\end{column}
-\end{columns}
+      \rule{1.012\textwidth}{10pt}
+    \end{column}
+  \end{columns}
 
-\vspace*{0.5cm}
+  \vspace*{0.5cm}
 
-\begin{columns}[t] % The whole poster consists of two major columns
+  \begin{columns}[t] % The whole poster consists of two major columns
 
-\begin{column}{\sepmargin}\end{column}
+    \begin{column}{\sepmargin}\end{column}
 
-\begin{column}{\onecolwid} % The first column
+    \begin{column}{\onecolwid} % The first column
 
 
-    \begin{block}{Introduction}
-    Chemotaxis (movement of biological cells in response to
-    chemical signals) was modeled by Keller-Segel in 1970.
-    Although there are several models, we focus on the
-    classical one, given by the following equations in
-    $\Omega\subset\mathbb{R}^n$:
-    \begin{subequations}\label{KSclasico}
-        \begin{empheq}[left=\empheqlbrace]{align}
-        &u_t= \alpha_0\Delta u - \alpha_1\nabla\cdot( u\nabla v), \quad x\in\Omega,\, t>0, \label{KSclasico:a}\\
-        &v_t= \alpha_2\Delta v -\alpha_3 v+\alpha_4 u,  \quad x\in\Omega,\, t>0,\label{KSclasico:b}\\[0.2cm]
-        &\grad u \cdot \nn = \grad v \cdot \nn = 0, \quad x\in\partial\Omega,\, t>0, \\[0.2cm]
-        &u(x,0)=u_0(x), \enspace v(x,0)=v_0(x), \quad x\in\Omega,
-        \end{empheq}
-    \end{subequations}
-    where $u$ and $v$ represent density of
-    \alert{cells} and \alert{chemical-signal}, respectively.
+      \begin{block}{Introduction}
+        Chemotaxis (movement of biological cells in response to
+        chemical signals) was modeled by Keller-Segel in 1970.
+        Although there are several models, we focus on the
+        classical one, given by the following equations in
+        $\Omega\subset\mathbb{R}^n$:
+        \begin{subequations}\label{KSclasico}
+          \begin{empheq}[left=\empheqlbrace]{align}
+            &u_t= \alpha_0\Delta u - \alpha_1\nabla\cdot( u\nabla v), \quad \xx\in\Omega,\, t>0, \label{KSclasico:a}\\
+            &v_t= \alpha_2\Delta v -\alpha_3 v+\alpha_4 u,  \quad \xx\in\Omega,\, t>0,\label{KSclasico:b}\\[0.2cm]
+            &\grad u \cdot \nn = \grad v \cdot \nn = 0, \quad \xx\in\partial\Omega,\, t>0, \\[0.2cm]
+            &u(\xx,0)=u_0(\xx), \enspace v(\xx,0)=v_0(\xx), \quad \xx\in\Omega,
+          \end{empheq}
+        \end{subequations}
+        where $u$ and $v$ represent density of
+        \alert{cells} and \alert{chemical-signal}, respectively.
 
-    \bigskip\par\indent From an analytical point of view, a lot of
-    research has been recently done (see e.g.~\cite{Winkler} and
-    references therein) and interesting results about global in time
-    existence, \alert{mass conservation}, \alert{energy}, blow-up and
-    \alert{positivity of solution} have been published.  However,
-    there is not a large literature on \textit{numerical analysis}
-    for~(\ref{KSclasico}), and reproducing former properties is an
-    interesting challenge. This work is mainly focused on development
-    of \textit{positivity preserving numerical schemes}, related to
-    discontinuous \textit{Galerkin methods}, which \textit{decouple}
-    calculus of $u$ and $v$.
+        \bigskip\par\indent From an analytical point of view, a lot of
+        research has been recently done (see e.g.~\cite{Winkler} and
+        references therein) and interesting results about global in time
+        existence, \alert{mass conservation}, \alert{energy}, blow-up and
+        \alert{positivity of solution} have been published.  However,
+        there is not a large literature on \textit{numerical analysis}
+        for~(\ref{KSclasico}), and reproducing former properties is an
+        interesting challenge. This work is mainly focused on development
+        of \textit{positivity preserving numerical schemes}, related to
+        discontinuous \textit{Galerkin methods}, which \textit{decouple}
+        calculus of $u$ and $v$.
 
       \end{block}
 
@@ -227,8 +227,8 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
           Strong Stability Preserving (SSP) methods} as follows:
         \begin{subequations}\label{tfgschemes}
           \begin{empheq}[left=\empheqlbrace]{align}
-            &\delta_t v^{m+s}-\alpha_2\nabla v^{m+s}+\alpha_3v^{m+s}-\alpha_4u^{m}=0, \label{TFGschemes:b} \\
-            &\delta_t u^{m+s}-\alpha_0\Delta u^{m+s} +\alpha_1\nabla\cdot(u^{m+s}\nabla v^{m+s})=0,\label{TFGschemes:a}
+            &\delta_t v^{m+1}-\alpha_2\nabla v^{m+s}+\alpha_3v^{m+s}-\alpha_4u^{m}=0, \label{TFGschemes:b} \\
+            &\delta_t u^{m+1}-\alpha_0\Delta u^{m+s} +\alpha_1\nabla\cdot(u^{m+s}\nabla v^{m+s})=0,\label{TFGschemes:a}
           \end{empheq}
         \end{subequations}
         where $s\in\{0,1\}$ and $\delta_t$ is the backward difference
@@ -255,7 +255,7 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
         Let us consider the following discrete problem: find
         $\umm\in\Uh$,
         \begin{equation}
-        \label{discrete_problem_u}
+          \label{discrete_problem_u}
           \int_\Omega \delta_t\umm \phi + \asip(\umm,\phi) + \agod(\umm,\phi)=0 \quad \forall\phi\in\Uh,
         \end{equation}
         where
@@ -263,11 +263,11 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
           \asip(u,\phi) &= \sum_{K\in\mathcal{T}_h}\int_K\nabla_h u\nabla_h \phi-\sum_{e\in\mathcal{E}_h}\int_e\left(\average{\nabla_h u\cdot\mathbf{n}_e}\jump{\phi}+\average{\nabla_h \phi\cdot\mathbf{n}_e}\jump{u}\right)\\&+\sigma\sum_{e\in\mathcal{E}_h}\int_e\frac{1}{h_e}\jump{u}\jump{\phi},
           \\
           \agod(u,\phi) &= -\sum_{K \in\mathcal{T}_h} \int_K u \, (\wwmm\cdot \grad\phi)
-                            + \sum_{e\in\Eh}\{ u \, \wwmm \cdot \nn_e\}_\star
+                          + \sum_{e\in\Eh}\{ u \, \wwmm \cdot \nn_e\}_\star
         \end{align*}
         and
         $$
-        \{ u \, \wwmm \cdot \nn_e\}_\star=(\wwmm\cdot \nn_e)\left(\frac{u|_{K_1}+u|_{K_2}}{2}\right)-\frac{1}{2}|\wwmm\cdot\nn_e|\jump{u}
+        \{ u \, \wwmm \cdot \nn_e\}_\star=(\wwmm\cdot \nn_e)\average{u} -\frac{1}{2}|\wwmm\cdot\nn_e|\jump{u}
         $$
         is the Godunov (upwind) flux~\cite{anderson_high-order_2017}.
 
@@ -282,43 +282,95 @@ rectangle ($(current page.south east)+(-1cm,2cm)$);
     \vspace*{0.5cm}
 
     \begin{column}{\onecolwid} %The second column
-      \begin{block}{Maximum Principle Preserving (MPP)}
-        Equation~(\ref{TFGschemes:a}) can be recast as:
+      \begin{block}{Positivity for for Cell Density Equation}
+        Equation~(\ref{TFGschemes:a}) can be recast, for
+        $U^m=(U_i(t^m))_{i=1}^N)$ d.o.f of $\uh(\xx,t^{m})$, as:
         \medskip
-    \begin{subequations}\label{matrix_eq_u}
-      \begin{align}
-        &M \; (\delta_t\Umm) + K\, U^{m+s} = 0, \quad \text{ where}
-        \\[0.1ex]
-        &M_{ij} = \int_\Omega \Phi_i\Phi_j,
-        % \quad K&=D+C,
-        % \quad D_{ij}=\asip(\Phi_i,\Phi_j),
-        % \quad C_{ij}=\agod(\Phi_i,\Phi_j).
-        \quad K_{ij}=\asip(\Phi_i,\Phi_j)+\agod(\Phi_i,\Phi_j).
-      \end{align}
-    \end{subequations}
-    Let us consider the system
-    \begin{subequations}\label{lumped_matrix_eq_u}
-      \begin{align}
-        &M^\star \; (\delta_t\Umm) + K^\star \, U^{m+s} = 0,
-          \intertext{where $M^\star$ is the \alert{mass lumped} matrix and $K^\star$ is the \alert{discrete
-          upwinded} matrix:}
-        & K^\star = K + L, \quad L_{ij}=\max(0,-K_{ij},-K_{ji}) \enspace \text{if } i\neq j, \quad L_{ii}=-\sum_{j\neq i} L_{ij}.
-      \end{align}
-    \end{subequations}
-    Then, \textbf{\alert{system~(\ref{lumped_matrix_eq_u}) is
-        MPP}}. This result can be shown if
-    $v\in L^\infty(0,T;W^{1,\infty}(\Omega))$ and $s=0$, using the
-    fact that $\sum_i K_{ij}=0$~\cite{anderson_high-order_2017} and is
-    conjectured for the general case.
+        \begin{subequations}\label{matrix_eq_u}
+          \begin{align}
+            &M \; (\delta_t\Umm) + K\, U^{m+s} = 0, \quad \text{ where}
+            \\[0.1ex]
+            &M_{ij} = \int_\Omega \Phi_i\Phi_j,
+            % \quad K&=D+C,
+            % \quad D_{ij}=\asip(\Phi_i,\Phi_j),
+            % \quad C_{ij}=\agod(\Phi_i,\Phi_j).
+                       \quad K_{ij}=\asip(\Phi_i,\Phi_j)+\agod(\Phi_i,\Phi_j).
+          \end{align}
+        \end{subequations}
+        Let us consider the system
+        \begin{subequations}\label{discrete_upwinded_eq_u}
+          \begin{align}
+            &M^\star \; (\delta_t\Umm) + K^\star \, U^{m+s} = 0,
+              \intertext{where $M^\star$ is the \alert{mass lumped} matrix and $K^\star$ is the \alert{discrete
+              upwinded} matrix:}
+            & K^\star = K + L, \quad L_{ij}=\max(0,-K_{ij},-K_{ji}) \enspace \text{if } i\neq j, \quad L_{ii}=-\sum_{j\neq i} L_{ij}.
+          \end{align}
+        \end{subequations}
+        Then we conjecture the following result:
+        \textbf{\alert{system~(\ref{discrete_upwinded_eq_u}) is positive}} in
+        the sense that
+        \begin{center}
+          if $\uh^0=u_0(\xx)\ge 0$ in $\Omega$, then $\umm\ge 0$ for all $m\ge 0$.
+        \end{center}
+        This result can be shown in the case $s=0$ if $\div\wwm=0$ (by a
+        generalization of \cite{anderson_high-order_2017}, where the fact
+        that $K$ has zero row and column sums, i.e.
+        $\sum_j K_{ij}=\sum_i K_{ij}=0$, is applied for small enough $k$).
+        Although $\div\wwm\neq 0$ if $\wwm$ comes from $\grad \vmm$ (and
+        the zero row property is not satisfied), it also would be valid
+        provided $v\in L^\infty(0,T;W^{1,\infty}(\Omega))$. Numerical
+        tests support positivity of $\uh$ in any case.
 
+        \bigskip\par
+        \textbf{Numerical Tests}:
+        \begin{small}
+          $\Omega=\{(x,y)\in \mathbb{R}^2,\ x^2+y^2< 9/4\}$,
+          $u_0=v_0=10 e^{-20( x^2 + y^2 ) }$,
+          $k_0=k_2=k_3=k_4=1, \alert{k_1\in\{1,2,3,4\}}$. $T=0.3$, $k=10^{-3}$,
+          $h\simeq 10^{-1}$ ($60$ subintervals on $\partial\Omega$),
+          implicit Euler ($s=1$).
+          \begin{columns}
+            \column{0.5\textwidth}
+            \includegraphics[width=\textwidth]{negative_min_u_k1=1,2,3,4.png}
+            \alert{$\mathbb{P}_1$--continuous} FE approximation of
+            scheme~(\ref{TFGschemes:a}). \textbf{Loss of positivity}
+            $\forall k_2\in\{1,2,3,4\}$.
 
-
+            \column{0.5\textwidth}
+            \includegraphics[width=\textwidth]{positive_min_u_k1=1,2,3,4.png}
+            \alert{$\mathbb{P}_1$--discontinuous} FE approximation of
+            scheme~(\ref{TFGschemes:a}). \structure{\textbf{Positivity}
+              $\forall k_2\in\{1,2,3,4\}$ !!}
+          \end{columns}
+        \end{small}
       \end{block}
 
 
       \vspace{0.2cm}
 
       \begin{block}{Mass Conservation}
+        \begin{columns}
+          \column{0.63\textwidth}
+          The method (\ref{discrete_problem_u}) is mass conservative in the following sense:
+          \begin{equation*}
+            \int_\Omega \umm = \int_\Omega \uh^0,
+            % \label{eq:mass_conservation}
+          \end{equation*}
+          what can be seen using the fact $\sum_i K_{ij}=0$. However, this
+          property is \alert{not verified} by the discrete upwinded
+          scheme~(\ref{discrete_upwinded_eq_u}) because, in the general
+          case, $\div\wwmm\neq 0$ thus zero column sums property is
+          not valid for $K$.
+          \column{0.37\textwidth}
+          \includegraphics[width=\textwidth]{positive_scheme_mass_k1=1,2,3,4.png}
+          \small
+            \alert{$\mathbb{P}_1$--discontinuous} approximation with
+            same previous data. Mass conservation is \alert{\textbf{not satisfied}} for $u$,
+              $k_2\in\{1,2,3,4\}$,
+        \end{columns}
+      \end{block}
+
+      \begin{block}{Conclusions and Future Work}
       \end{block}
 
     \end{column}

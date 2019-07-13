@@ -5,34 +5,34 @@ The style file: nat.bst
 Database file #1: bibliog.bib.bib
 You've used 5 entries,
             2773 wiz_defined-function locations,
-            627 strings with 5493 characters,
-and the built_in function-call counts, 2625 in all, are:
-= -- 238
-> -- 166
+            627 strings with 5482 characters,
+and the built_in function-call counts, 2560 in all, are:
+= -- 232
+> -- 155
 < -- 3
-+ -- 56
-- -- 51
-* -- 217
-:= -- 412
++ -- 53
+- -- 48
+* -- 209
+:= -- 403
 add.period$ -- 15
 call.type$ -- 5
-change.case$ -- 32
+change.case$ -- 31
 chr.to.int$ -- 5
 cite$ -- 10
 duplicate$ -- 107
 empty$ -- 190
-format.name$ -- 58
-if$ -- 538
+format.name$ -- 53
+if$ -- 524
 int.to.chr$ -- 1
 int.to.str$ -- 1
 missing$ -- 4
 newline$ -- 33
 num.names$ -- 20
-pop$ -- 56
+pop$ -- 55
 preamble$ -- 1
-purify$ -- 27
+purify$ -- 26
 quote$ -- 0
-skip$ -- 91
+skip$ -- 88
 stack$ -- 0
 substring$ -- 123
 swap$ -- 13
